@@ -1,28 +1,17 @@
 package com.example.usbkeyboard
 
+import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.view.Gravity
 import android.widget.Button
-import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.PrintWriter
 import java.net.Socket
 import java.util.concurrent.Executors
 
-/**
- * Minimal keyboard bridge UI.
- *
- * Design goals (low resource usage):
- * - No RecyclerView, no animations, no images.
- * - Single background thread for the socket; no polling.
- * - Plain java.net.Socket, no OkHttp/Retrofit — keeps APK small and avoids
- *   pulling in unused HTTP stack for a simple line-based TCP protocol.
- *
- * Connects to 127.0.0.1:8901, which `adb reverse tcp:8901 tcp:8901`
- * tunnels directly to the PC-side Python server over the USB cable.
- */
 class MainActivity : AppCompatActivity() {
 
     private val PORT = 8901
@@ -31,50 +20,116 @@ class MainActivity : AppCompatActivity() {
     private val ioExecutor = Executors.newSingleThreadExecutor()
 
     private lateinit var statusText: TextView
-    private lateinit var input: EditText
 
-    private var lastSentLength = 0
+    private val activeModifiers = linkedSetOf<String>()
+    private val modifierButtons = mutableMapOf<String, Button>()
+
+    private val rows: List<List<Pair<String, String>>> = listOf(
+        listOf("Esc" to "esc", "1" to "1", "2" to "2", "3" to "3", "4" to "4",
+            "5" to "5", "6" to "6", "7" to "7", "8" to "8", "9" to "9", "0" to "0",
+            "-" to "-", "=" to "=", "⌫" to "backspace"),
+        listOf("Tab" to "tab", "q" to "q", "w" to "w", "e" to "e", "r" to "r",
+            "t" to "t", "y" to "y", "u" to "u", "i" to "i", "o" to "o", "p" to "p",
+            "[" to "[", "]" to "]"),
+        listOf("a" to "a", "s" to "s", "d" to "d", "f" to "f", "g" to "g",
+            "h" to "h", "j" to "j", "k" to "k", "l" to "l", ";" to ";",
+            "'" to "'", "Enter" to "enter"),
+        listOf("z" to "z", "x" to "x", "c" to "c", "v" to "v", "b" to "b",
+            "n" to "n", "m" to "m", "," to ",", "." to ".", "/" to "/"),
+        listOf("←" to "left", "↑" to "up", "↓" to "down", "→" to "right")
+    )
+
+    private val modifierKeys = listOf("ctrl", "alt", "shift")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         statusText = findViewById(R.id.statusText)
-        input = findViewById(R.id.inputField)
         val connectButton: Button = findViewById(R.id.connectButton)
-        val enterButton: Button = findViewById(R.id.enterButton)
-        val clearButton: Button = findViewById(R.id.clearButton)
+        val keyboardContainer: LinearLayout = findViewById(R.id.keyboardContainer)
 
         connectButton.setOnClickListener { connect() }
 
-        enterButton.setOnClickListener {
-            send("""{"type":"key","value":"enter"}""")
-        }
+        val scroll = ScrollView(this)
+        val keyboardColumn = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+        scroll.addView(keyboardColumn)
+        keyboardContainer.addView(scroll)
 
-        clearButton.setOnClickListener {
-            input.setText("")
-            lastSentLength = 0
-        }
+        rows.forEach { row -> keyboardColumn.addView(buildRow(row)) }
+        keyboardColumn.addView(buildModifierAndSpaceRow())
+    }
 
-        // Send only the newly typed characters as they're typed,
-        // so the PC field always mirrors the phone field.
-        input.addTextChangedListener(object : TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-            override fun afterTextChanged(s: Editable?) {
-                val text = s.toString()
-                if (text.length > lastSentLength) {
-                    val added = text.substring(lastSentLength)
-                    sendText(added)
-                } else if (text.length < lastSentLength) {
-                    val deletedCount = lastSentLength - text.length
-                    repeat(deletedCount) {
-                        send("""{"type":"key","value":"backspace"}""")
-                    }
-                }
-                lastSentLength = text.length
+    private fun buildRow(keys: List<Pair<String, String>>): LinearLayout {
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, 2, 0, 2) }
+        }
+        keys.forEach { (label, value) ->
+            row.addView(makeKeyButton(label) { onKeyPressed(value) })
+        }
+        return row
+    }
+
+    private fun buildModifierAndSpaceRow(): LinearLayout {
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, 2, 0, 2) }
+        }
+        modifierKeys.forEach { mod ->
+            val btn = makeKeyButton(mod.replaceFirstChar { it.uppercase() }) { toggleModifier(mod) }
+            modifierButtons[mod] = btn
+            row.addView(btn)
+        }
+        val space = makeKeyButton("Space") { onKeyPressed("space") }
+        space.layoutParams = (space.layoutParams as LinearLayout.LayoutParams).apply { weight = 4f }
+        row.addView(space)
+        return row
+    }
+
+    private fun makeKeyButton(label: String, onClick: () -> Unit): Button {
+        return Button(this).apply {
+            text = label
+            textSize = 13f
+            setPadding(2, 8, 2, 8)
+            layoutParams = LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+            ).apply { setMargins(1, 1, 1, 1) }
+            gravity = Gravity.CENTER
+            setOnClickListener { onClick() }
+        }
+    }
+
+    private fun toggleModifier(mod: String) {
+        if (activeModifiers.contains(mod)) {
+            activeModifiers.remove(mod)
+            modifierButtons[mod]?.setBackgroundColor(Color.parseColor("#333333"))
+        } else {
+            activeModifiers.add(mod)
+            modifierButtons[mod]?.setBackgroundColor(Color.parseColor("#3B82F6"))
+        }
+    }
+
+    private fun onKeyPressed(value: String) {
+        val combo = if (activeModifiers.isEmpty()) {
+            value
+        } else {
+            (activeModifiers.toList() + value).joinToString("+")
+        }
+        send("""{"type":"key","value":"$combo"}""")
+
+        if (activeModifiers.isNotEmpty()) {
+            activeModifiers.toList().forEach { mod ->
+                modifierButtons[mod]?.setBackgroundColor(Color.parseColor("#333333"))
             }
-        })
+            activeModifiers.clear()
+        }
     }
 
     private fun connect() {
@@ -89,11 +144,6 @@ class MainActivity : AppCompatActivity() {
                 runOnUiThread { statusText.text = "Connection failed: ${e.message}" }
             }
         }
-    }
-
-    private fun sendText(text: String) {
-        val escaped = text.replace("\\", "\\\\").replace("\"", "\\\"")
-        send("""{"type":"text","value":"$escaped"}""")
     }
 
     private fun send(jsonLine: String) {
