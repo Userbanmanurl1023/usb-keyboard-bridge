@@ -84,3 +84,166 @@ class MainActivity : AppCompatActivity() {
         }
         val modifierAndSpace = buildModifierAndSpaceRow().apply {
             layoutParams = LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 3f
+            )
+        }
+        val arrowCluster = buildArrowCluster().apply {
+            layoutParams = LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+            ).apply { setMargins(8, 0, 0, 0) }
+        }
+        bottomSection.addView(modifierAndSpace)
+        bottomSection.addView(arrowCluster)
+        keyboardColumn.addView(bottomSection)
+    }
+
+    private fun buildRow(keys: List<Pair<String, String>>, compact: Boolean = false): LinearLayout {
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            ).apply { setMargins(0, 2, 0, 2) }
+        }
+        keys.forEach { (label, value) ->
+            row.addView(makeKeyButton(label, compact) { onKeyPressed(value) }.also {
+                styleKey(it, value)
+            })
+        }
+        return row
+    }
+
+    private fun buildModifierAndSpaceRow(): LinearLayout {
+        val row = LinearLayout(this).apply {
+            orientation = LinearLayout.HORIZONTAL
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+            )
+        }
+        modifierKeys.forEach { mod ->
+            val btn = makeKeyButton(mod.replaceFirstChar { it.uppercase() }, false) { toggleModifier(mod) }
+            styleKey(btn, mod)
+            modifierButtons[mod] = btn
+            row.addView(btn)
+        }
+        val space = makeKeyButton("Space", false) { onKeyPressed("space") }
+        styleKey(space, "space")
+        space.layoutParams = (space.layoutParams as LinearLayout.LayoutParams).apply { weight = 4f }
+        row.addView(space)
+        return row
+    }
+
+    private fun buildArrowCluster(): LinearLayout {
+        val cluster = LinearLayout(this).apply { orientation = LinearLayout.VERTICAL }
+
+        val topRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        topRow.addView(spacerKey())
+        topRow.addView(makeKeyButton("↑", false) { onKeyPressed("up") }.also { styleKey(it, "up") })
+        topRow.addView(spacerKey())
+
+        val bottomRow = LinearLayout(this).apply { orientation = LinearLayout.HORIZONTAL }
+        bottomRow.addView(makeKeyButton("←", false) { onKeyPressed("left") }.also { styleKey(it, "left") })
+        bottomRow.addView(makeKeyButton("↓", false) { onKeyPressed("down") }.also { styleKey(it, "down") })
+        bottomRow.addView(makeKeyButton("→", false) { onKeyPressed("right") }.also { styleKey(it, "right") })
+
+        cluster.addView(topRow)
+        cluster.addView(bottomRow)
+        return cluster
+    }
+
+    private fun spacerKey(): Button {
+        return makeKeyButton("", false) {}.apply {
+            isEnabled = false
+            background = null
+        }
+    }
+
+    private fun makeKeyButton(label: String, compact: Boolean, onClick: () -> Unit): Button {
+        return Button(this).apply {
+            text = label
+            textSize = if (compact) 10f else 13f
+            setPadding(2, if (compact) 4 else 8, 2, if (compact) 4 else 8)
+            layoutParams = LinearLayout.LayoutParams(
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f
+            ).apply { setMargins(2, 2, 2, 2) }
+            gravity = Gravity.CENTER
+            stateListAnimator = null
+            setOnClickListener { onClick() }
+        }
+    }
+
+    private fun styleKey(button: Button, keyValue: String) {
+        val isAccent = accentKeys.contains(keyValue)
+        val drawable = GradientDrawable().apply {
+            cornerRadius = 10f
+            setColor(if (isAccent) colorKeyAccent else colorKeyNormal)
+        }
+        button.background = drawable
+        button.setTextColor(if (isAccent) colorTextAccent else colorTextNormal)
+    }
+
+    private fun toggleModifier(mod: String) {
+        val btn = modifierButtons[mod] ?: return
+        val drawable = GradientDrawable().apply { cornerRadius = 10f }
+        if (activeModifiers.contains(mod)) {
+            activeModifiers.remove(mod)
+            drawable.setColor(colorKeyAccent)
+        } else {
+            activeModifiers.add(mod)
+            drawable.setColor(colorAccentActive)
+        }
+        btn.background = drawable
+    }
+
+    private fun onKeyPressed(value: String) {
+        val combo = if (activeModifiers.isEmpty()) {
+            value
+        } else {
+            (activeModifiers.toList() + value).joinToString("+")
+        }
+        send("""{"type":"key","value":"$combo"}""")
+
+        if (activeModifiers.isNotEmpty()) {
+            activeModifiers.toList().forEach { mod -> resetModifierColor(mod) }
+            activeModifiers.clear()
+        }
+    }
+
+    private fun resetModifierColor(mod: String) {
+        modifierButtons[mod]?.background = GradientDrawable().apply {
+            cornerRadius = 10f
+            setColor(colorKeyAccent)
+        }
+    }
+
+    private fun connect() {
+        ioExecutor.execute {
+            try {
+                socket?.close()
+                val s = Socket("127.0.0.1", PORT)
+                writer = PrintWriter(s.getOutputStream(), true)
+                socket = s
+                runOnUiThread { statusText.text = "Connected to PC" }
+            } catch (e: Exception) {
+                runOnUiThread { statusText.text = "Connection failed: ${e.message}" }
+            }
+        }
+    }
+
+    private fun send(jsonLine: String) {
+        ioExecutor.execute {
+            try {
+                writer?.println(jsonLine)
+            } catch (e: Exception) {
+                runOnUiThread { statusText.text = "Send failed: ${e.message}" }
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        ioExecutor.execute { socket?.close() }
+        ioExecutor.shutdown()
+    }
+}
