@@ -1,4 +1,4 @@
-<!-- STREAMING_CHUNK:Designing glassmorphic header and status panel... -->
+<!-- STREAMING_CHUNK:Designing glassmorphic toolbar header... -->
 <!-- Control Header -->
 <LinearLayout
     android:layout_width="match_parent"
@@ -46,7 +46,7 @@
         android:paddingHorizontal="12dp" />
 </LinearLayout>
 
-<!-- STREAMING_CHUNK:Structuring text display terminal... -->
+<!-- STREAMING_CHUNK:Styling text display terminal... -->
 <!-- Glassmorphic Terminal Display -->
 <TextView
     android:id="@+id/display"
@@ -63,7 +63,7 @@
     android:hint="Terminal Display active..."
     android:scrollbars="vertical" />
 
-<!-- STREAMING_CHUNK:Building ortholinear F-key row... -->
+<!-- STREAMING_CHUNK:Assembling F-keys row... -->
 <!-- Keyboard Grid Container -->
 <LinearLayout
     android:layout_width="match_parent"
@@ -106,7 +106,7 @@
             android:id="@+id/btnF12" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F12" />
     </LinearLayout>
 
-    <!-- STREAMING_CHUNK:Assembling number row with Esc and Backspace... -->
+    <!-- STREAMING_CHUNK:Building number row with Esc and Backspace... -->
     <!-- Row 1: Esc, Numbers, Backspace (Total Weight = 15) -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -146,7 +146,7 @@
             android:id="@+id/btnBack" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="⌫" />
     </LinearLayout>
 
-    <!-- STREAMING_CHUNK:Generating QWERTY row with aligned vertical columns... -->
+    <!-- STREAMING_CHUNK:Constructing QWERTY row with aligned columns... -->
     <!-- Row 2: Tab, QWERTY, Punctuation (Total Weight = 15) -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -224,7 +224,7 @@
             android:id="@+id/btnEnter" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="Enter" />
     </LinearLayout>
 
-    <!-- STREAMING_CHUNK:Constructing bottom shift row... -->
+    <!-- STREAMING_CHUNK:Implementing bottom shift row... -->
     <!-- Row 4: Shift Left, Bottom Row, Shift Right (Total Weight = 15) -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -260,7 +260,7 @@
             android:id="@+id/btnShiftR" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="4" android:text="Shift" />
     </LinearLayout>
 
-    <!-- STREAMING_CHUNK:Implementing spacebar and compact arrow navigation pad... -->
+    <!-- STREAMING_CHUNK:Developing spacebar and arrow navigation pad... -->
     <!-- Row 5: Ctrl, Alt, Space, Navigation Arrow Cluster (Total Weight = 15) -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -316,40 +316,3 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
- <resources>
-    <!-- Dark Translucent Frosted Glass Styling (Normal Keys) -->
-    <style name="GlassKeyNormal" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:textColor">#E2E8F0</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:fontFamily">monospace</item>
-        <item name="app:backgroundTint">#1AFFFFFF</item> <!-- 10% translucent white -->
-        <item name="app:strokeColor">#19FFFFFF</item> <!-- Soft glass outline -->
-        <item name="app:strokeWidth">1dp</item>
-        <item name="app:cornerRadius">4dp</item> <!-- Rectilinear with a subtle round -->
-        <item name="android:stateListAnimator">@null</item> <!-- Eliminates heavy rendering shadows -->
-    </style>
-
-    <!-- Vibrant Tinted Orange Glass (Accent/Special Keys) -->
-    <style name="GlassKeyAccent" parent="Widget.MaterialComponents.Button">
-        <item name="android:layout_margin">2dp</item>
-        <item name="android:padding">0dp</item>
-        <item name="android:insetTop">0dp</item>
-        <item name="android:insetBottom">0dp</item>
-        <item name="android:insetLeft">0dp</item>
-        <item name="android:insetRight">0dp</item>
-        <item name="android:textColor">#FFFFFF</item>
-        <item name="android:textSize">11sp</item>
-        <item name="android:fontFamily">monospace</item>
-        <item name="app:backgroundTint">#D9FF6B35</item> <!-- 85% opacity orange -->
-        <item name="app:strokeColor">#FF8C5A</item> <!-- Glowing orange border -->
-        <item name="app:strokeWidth">1dp</item>
-        <item name="app:cornerRadius">4dp</item>
-        <item name="android:stateListAnimator">@null</item>
-    </style>
-</resources>
