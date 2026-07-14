@@ -1,32 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- STREAMING_CHUNK:Configuring display area... -->
+<TextView
+    android:id="@+id/display"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:background="#1A1A1A"
+    android:textColor="#FFFFFF"
+    android:gravity="bottom|start"
     android:padding="8dp"
-    android:background="#121212">
+    android:textSize="14sp"
+    android:fontFamily="monospace"
+    android:text="Display..." />
 
-    <TextView
-        android:id="@+id/statusText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Not connected"
-        android:textColor="#AAAAAA"
-        android:textSize="13sp"
-        android:paddingBottom="8dp" />
+<!-- STREAMING_CHUNK:Defining F-Row... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:weightSum="12">
+    <Button android:id="@+id/btnF1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F1" />
+    <Button android:id="@+id/btnF2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F2" />
+    <Button android:id="@+id/btnF3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F3" />
+    <Button android:id="@+id/btnF4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F4" />
+    <Button android:id="@+id/btnF5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F5" />
+    <Button android:id="@+id/btnF6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F6" />
+    <Button android:id="@+id/btnF7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F7" />
+    <Button android:id="@+id/btnF8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F8" />
+    <Button android:id="@+id/btnF9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F9" />
+    <Button android:id="@+id/btnF10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F10" />
+    <Button android:id="@+id/btnF11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F11" />
+    <Button android:id="@+id/btnF12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F12" />
+</LinearLayout>
 
-    <Button
-        android:id="@+id/connectButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Connect to PC"
-        android:layout_marginBottom="8dp" />
+<!-- STREAMING_CHUNK:Defining Number/Esc row... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:weightSum="14">
+    <Button android:id="@+id/btnEsc" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.2" android:text="Esc" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="1" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="2" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="3" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="4" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="5" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="6" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="7" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="8" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="9" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="0" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="-" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="=" />
+    <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.8" android:text="Back" />
+</LinearLayout>
 
+<!-- STREAMING_CHUNK:Defining QWERTY row... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:weightSum="13">
+    <Button android:id="@+id/btnTab" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Tab" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Q" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="W" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="E" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="R" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Y" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="U" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="I" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="O" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="P" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="[" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="]" />
+</LinearLayout>
+
+<!-- STREAMING_CHUNK:Defining Home row... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:weightSum="13">
+    <Button android:id="@+id/btnCaps" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.8" android:text="Caps" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="A" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="S" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="D" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="G" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="H" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="J" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="K" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="L" />
+    <Button android:id="@+id/btnEnter" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.2" android:text="Enter" />
+</LinearLayout>
+
+<!-- STREAMING_CHUNK:Defining Bottom row... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1"
+    android:orientation="horizontal"
+    android:weightSum="12">
+    <Button android:id="@+id/btnShiftL" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.2" android:text="Shift" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Z" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="X" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="C" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="V" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="B" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="N" />
+    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="M" />
+    <Button android:id="@+id/btnShiftR" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.8" android:text="Shift" />
+</LinearLayout>
+
+<!-- STREAMING_CHUNK:Defining Space row and arrow cluster... -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="1.2"
+    android:orientation="horizontal"
+    android:weightSum="10">
+    <Button android:id="@+id/btnCtrl" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Ctrl" />
+    <Button android:id="@+id/btnAlt" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Alt" />
+    <Button android:id="@+id/btnSpace" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="5" android:text="Space" />
     <LinearLayout
-        android:id="@+id/keyboardContainer"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" />
-
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <Button android:id="@+id/btnUp" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:text="↑" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+            <Button android:id="@+id/btnLeft" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="←" />
+            <Button android:id="@+id/btnDown" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="↓" />
+            <Button android:id="@+id/btnRight" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="→" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>
