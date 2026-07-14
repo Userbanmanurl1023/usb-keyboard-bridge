@@ -316,3 +316,8 @@
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+<com.google.android.material.button.MaterialButton
+                android:id="@+id/btnRight" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="→" />
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
