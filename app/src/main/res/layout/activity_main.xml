@@ -1,145 +1,355 @@
-<!-- STREAMING_CHUNK:Configuring display area... -->
+<!-- STREAMING_CHUNK:Designing glassmorphic header and status panel... -->
+<!-- Control Header -->
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:layout_marginBottom="8dp"
+    android:background="#15FFFFFF"
+    android:elevation="1dp"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:paddingHorizontal="16dp"
+    android:outlineProvider="bounds">
+    
+    <View
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:background="#FF6B35"
+        android:layout_marginEnd="10dp" />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="USB RECTILINEAR BRIDGE"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        android:letterSpacing="0.1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnRotate"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:text="ROTATE"
+        android:textColor="#FFFFFF"
+        android:textSize="10sp"
+        android:textStyle="bold"
+        android:fontFamily="monospace"
+        app:backgroundTint="#26FFFFFF"
+        app:strokeColor="#33FFFFFF"
+        app:strokeWidth="1dp"
+        app:cornerRadius="4dp"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:paddingHorizontal="12dp" />
+</LinearLayout>
+
+<!-- STREAMING_CHUNK:Structuring text display terminal... -->
+<!-- Glassmorphic Terminal Display -->
 <TextView
     android:id="@+id/display"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:background="#1A1A1A"
-    android:textColor="#FFFFFF"
-    android:gravity="bottom|start"
-    android:padding="8dp"
-    android:textSize="14sp"
+    android:layout_height="80dp"
+    android:layout_marginBottom="12dp"
+    android:background="#1F000000"
     android:fontFamily="monospace"
-    android:text="Display..." />
+    android:gravity="bottom|start"
+    android:padding="12dp"
+    android:textColor="#00FF66"
+    android:textColorHint="#4DFFFFFF"
+    android:textSize="14sp"
+    android:hint="Terminal Display active..."
+    android:scrollbars="vertical" />
 
-<!-- STREAMING_CHUNK:Defining F-Row... -->
+<!-- STREAMING_CHUNK:Building ortholinear F-key row... -->
+<!-- Keyboard Grid Container -->
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="0dp"
     android:layout_weight="1"
-    android:orientation="horizontal"
-    android:weightSum="12">
-    <Button android:id="@+id/btnF1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F1" />
-    <Button android:id="@+id/btnF2" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F2" />
-    <Button android:id="@+id/btnF3" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F3" />
-    <Button android:id="@+id/btnF4" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F4" />
-    <Button android:id="@+id/btnF5" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F5" />
-    <Button android:id="@+id/btnF6" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F6" />
-    <Button android:id="@+id/btnF7" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F7" />
-    <Button android:id="@+id/btnF8" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F8" />
-    <Button android:id="@+id/btnF9" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F9" />
-    <Button android:id="@+id/btnF10" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F10" />
-    <Button android:id="@+id/btnF11" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F11" />
-    <Button android:id="@+id/btnF12" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F12" />
-</LinearLayout>
+    android:orientation="vertical">
 
-<!-- STREAMING_CHUNK:Defining Number/Esc row... -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:weightSum="14">
-    <Button android:id="@+id/btnEsc" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.2" android:text="Esc" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="1" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="2" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="3" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="4" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="5" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="6" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="7" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="8" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="9" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="0" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="-" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="=" />
-    <Button android:id="@+id/btnBack" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.8" android:text="Back" />
-</LinearLayout>
-
-<!-- STREAMING_CHUNK:Defining QWERTY row... -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:weightSum="13">
-    <Button android:id="@+id/btnTab" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Tab" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Q" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="W" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="E" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="R" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Y" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="U" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="I" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="O" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="P" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="[" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="]" />
-</LinearLayout>
-
-<!-- STREAMING_CHUNK:Defining Home row... -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:weightSum="13">
-    <Button android:id="@+id/btnCaps" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.8" android:text="Caps" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="A" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="S" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="D" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="G" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="H" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="J" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="K" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="L" />
-    <Button android:id="@+id/btnEnter" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.2" android:text="Enter" />
-</LinearLayout>
-
-<!-- STREAMING_CHUNK:Defining Bottom row... -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1"
-    android:orientation="horizontal"
-    android:weightSum="12">
-    <Button android:id="@+id/btnShiftL" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.2" android:text="Shift" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Z" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="X" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="C" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="V" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="B" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="N" />
-    <Button android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="M" />
-    <Button android:id="@+id/btnShiftR" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2.8" android:text="Shift" />
-</LinearLayout>
-
-<!-- STREAMING_CHUNK:Defining Space row and arrow cluster... -->
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:layout_weight="1.2"
-    android:orientation="horizontal"
-    android:weightSum="10">
-    <Button android:id="@+id/btnCtrl" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Ctrl" />
-    <Button android:id="@+id/btnAlt" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.5" android:text="Alt" />
-    <Button android:id="@+id/btnSpace" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="5" android:text="Space" />
+    <!-- Row 0: F-Keys Row (12 keys split equally into 15 units -> each 1.25 weight) -->
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
-        <Button android:id="@+id/btnUp" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:text="↑" />
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:layout_marginBottom="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF1" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F1" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF2" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F2" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF3" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F3" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF4" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F4" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF5" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F5" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF6" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F6" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF7" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F7" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF8" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F8" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF9" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F9" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF10" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F10" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF11" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F11" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnF12" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1.25" android:text="F12" />
+    </LinearLayout>
+
+    <!-- STREAMING_CHUNK:Assembling number row with Esc and Backspace... -->
+    <!-- Row 1: Esc, Numbers, Backspace (Total Weight = 15) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:layout_marginBottom="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEsc" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Esc" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="1" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="2" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="3" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="4" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="5" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="6" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="7" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="8" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="9" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="0" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="-" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="=" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnBack" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="⌫" />
+    </LinearLayout>
+
+    <!-- STREAMING_CHUNK:Generating QWERTY row with aligned vertical columns... -->
+    <!-- Row 2: Tab, QWERTY, Punctuation (Total Weight = 15) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:layout_marginBottom="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTab" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Tab" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Q" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="W" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="E" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="R" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="T" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Y" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="U" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="I" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="O" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="P" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="[" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="]" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="2" android:text="\\" />
+    </LinearLayout>
+
+    <!-- STREAMING_CHUNK:Adding home row with Caps and justified Enter key... -->
+    <!-- Row 3: Caps, Home Row, Enter (Total Weight = 15) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:layout_marginBottom="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCaps" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Caps" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="A" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="S" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="D" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="F" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="G" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="H" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="J" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="K" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="L" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text=";" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="'" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnEnter" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="3" android:text="Enter" />
+    </LinearLayout>
+
+    <!-- STREAMING_CHUNK:Constructing bottom shift row... -->
+    <!-- Row 4: Shift Left, Bottom Row, Shift Right (Total Weight = 15) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:weightSum="15"
+        android:layout_marginBottom="4dp">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShiftL" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Shift" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Z" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="X" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="C" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="V" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="B" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="N" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="M" />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="," />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="." />
+        <com.google.android.material.button.MaterialButton
+            style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="/" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnShiftR" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="4" android:text="Shift" />
+    </LinearLayout>
+
+    <!-- STREAMING_CHUNK:Implementing spacebar and compact arrow navigation pad... -->
+    <!-- Row 5: Ctrl, Alt, Space, Navigation Arrow Cluster (Total Weight = 15) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1.2"
+        android:orientation="horizontal"
+        android:weightSum="15">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnCtrl" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Ctrl" />
+        
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAlt" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="Alt" />
+        
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSpace" style="@style/GlassKeyNormal" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="10" android:text="Space" />
+
+        <!-- Perfectly aligned nested Arrow Pad (Spans exactly 3 units on the right) -->
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal">
-            <Button android:id="@+id/btnLeft" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="←" />
-            <Button android:id="@+id/btnDown" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="↓" />
-            <Button android:id="@+id/btnRight" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="→" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:orientation="vertical">
+
+            <!-- Arrow Up Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3"
+                android:layout_marginBottom="2dp">
+                <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnUp" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="↑" />
+                <View android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" />
+            </LinearLayout>
+
+            <!-- Arrow Left, Down, Right Row -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnLeft" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="←" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnDown" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="↓" />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRight" style="@style/GlassKeyAccent" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="→" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>
+ <resources>
+    <!-- Dark Translucent Frosted Glass Styling (Normal Keys) -->
+    <style name="GlassKeyNormal" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textColor">#E2E8F0</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="app:backgroundTint">#1AFFFFFF</item> <!-- 10% translucent white -->
+        <item name="app:strokeColor">#19FFFFFF</item> <!-- Soft glass outline -->
+        <item name="app:strokeWidth">1dp</item>
+        <item name="app:cornerRadius">4dp</item> <!-- Rectilinear with a subtle round -->
+        <item name="android:stateListAnimator">@null</item> <!-- Eliminates heavy rendering shadows -->
+    </style>
+
+    <!-- Vibrant Tinted Orange Glass (Accent/Special Keys) -->
+    <style name="GlassKeyAccent" parent="Widget.MaterialComponents.Button">
+        <item name="android:layout_margin">2dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:fontFamily">monospace</item>
+        <item name="app:backgroundTint">#D9FF6B35</item> <!-- 85% opacity orange -->
+        <item name="app:strokeColor">#FF8C5A</item> <!-- Glowing orange border -->
+        <item name="app:strokeWidth">1dp</item>
+        <item name="app:cornerRadius">4dp</item>
+        <item name="android:stateListAnimator">@null</item>
+    </style>
+</resources>
