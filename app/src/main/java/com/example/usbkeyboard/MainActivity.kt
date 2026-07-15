@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -43,14 +44,12 @@ class MainActivity : AppCompatActivity() {
         "meta", "printscreen", "insert"
     )
 
-    // key value -> layout weight, matches the widened edge-key preview
-    // (Esc/Backspace 1.5x, Tab 2x, Caps/Enter 2.5x, Shift 3x). Anything not
+    // key value -> layout weight. Esc/Backspace/Enter stay slightly widened
+    // for reachability; Tab/Caps/Shift are normal-sized. Anything not
     // listed defaults to 1f.
     private val keyWeights = mapOf(
         "esc" to 1.5f, "backspace" to 1.5f,
-        "tab" to 2f,
-        "caps" to 2.5f, "enter" to 2.5f,
-        "shift" to 3f
+        "enter" to 1.5f
     )
 
     private val fRow: List<Pair<String, String>> = (1..12).map { "F$it" to "f$it" }
@@ -66,7 +65,7 @@ class MainActivity : AppCompatActivity() {
             "h" to "h", "j" to "j", "k" to "k", "l" to "l",
             "Enter" to "enter"),
         listOf("Shift" to "shift", "z" to "z", "x" to "x", "c" to "c", "v" to "v", "b" to "b",
-            "n" to "n", "m" to "m", "Shift" to "shift")
+            "n" to "n", "m" to "m")
     )
 
     private val modifierKeys = listOf("ctrl", "alt")
@@ -90,7 +89,8 @@ class MainActivity : AppCompatActivity() {
         keyboardContainer.addView(scroll)
 
         keyboardColumn.addView(buildRow(fRow, compact = true))
-        rows.forEach { row -> keyboardColumn.addView(buildRow(row)) }
+        val maxRowWeight = rows.maxOf { rowWeightSum(it) }
+        rows.forEach { row -> keyboardColumn.addView(buildRow(row, targetWeight = maxRowWeight)) }
 
         val bottomSection = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
@@ -111,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         }
         val arrowCluster = buildArrowCluster().apply {
             layoutParams = LinearLayout.LayoutParams(
-                0, LinearLayout.LayoutParams.WRAP_CONTENT, 2f
+                0, LinearLayout.LayoutParams.WRAP_CONTENT, 3f
             ).apply { setMargins(8, 0, 0, 0) }
         }
         bottomSection.addView(modifierAndSpace)
@@ -136,7 +136,10 @@ class MainActivity : AppCompatActivity() {
         return cluster
     }
 
-    private fun buildRow(keys: List<Pair<String, String>>, compact: Boolean = false): LinearLayout {
+    private fun rowWeightSum(keys: List<Pair<String, String>>): Float =
+        keys.sumOf { (_, value) -> (keyWeights[value] ?: 1f).toDouble() }.toFloat()
+
+    private fun buildRow(keys: List<Pair<String, String>>, compact: Boolean = false, targetWeight: Float? = null): LinearLayout {
         val row = LinearLayout(this).apply {
             orientation = LinearLayout.HORIZONTAL
             layoutParams = LinearLayout.LayoutParams(
@@ -152,6 +155,18 @@ class MainActivity : AppCompatActivity() {
             styleKey(button, value)
             if (value == "caps") capsButton = button
             row.addView(button)
+        }
+        // Pad shorter rows with an invisible spacer so every row's letter
+        // keys divide the same total weight -- keeps key width consistent
+        // and columns aligned across rows instead of drifting.
+        if (targetWeight != null) {
+            val remainder = targetWeight - rowWeightSum(keys)
+            if (remainder > 0.01f) {
+                val spacer = View(this).apply {
+                    layoutParams = LinearLayout.LayoutParams(0, 0, remainder)
+                }
+                row.addView(spacer)
+            }
         }
         return row
     }
