@@ -13,12 +13,14 @@
         android:textColor="#AAAAAA"
         android:textSize="13sp"
         android:paddingBottom="4dp" />
-    <Button
-        android:id="@+id/connectButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Connect to PC"
-        android:layout_marginBottom="4dp" />
+    <View
+        android:id="@+id/statusDot"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_gravity="start"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:focusable="true" />
     <LinearLayout
         android:id="@+id/keyboardContainer"
         android:layout_width="match_parent"
