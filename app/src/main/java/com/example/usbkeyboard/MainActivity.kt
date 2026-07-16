@@ -38,6 +38,14 @@ class MainActivity : AppCompatActivity() {
     private val colorTextNormal = Color.argb(204, 255, 255, 255)  // rgba(255,255,255,0.8)
     private val colorTextAccent = Color.WHITE
 
+    // Connection status dot colors
+    private val statusDisconnected = Color.parseColor("#E74C3C") // red
+    private val statusConnected = Color.parseColor("#2ECC71")    // green
+    private val statusConnecting = Color.parseColor("#F1C40F")   // yellow
+    private val statusError = Color.parseColor("#E67E22")        // orange
+
+    private lateinit var statusDot: View
+
     private val accentKeys = setOf(
         "esc", "backspace", "enter", "tab", "caps", "up", "down", "left", "right",
         "ctrl", "alt", "shift", "delete", "home", "end", "pageup", "pagedown",
@@ -75,10 +83,11 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         statusText = findViewById(R.id.statusText)
-        val connectButton: Button = findViewById(R.id.connectButton)
+        statusDot = findViewById(R.id.statusDot)
         val keyboardContainer: LinearLayout = findViewById(R.id.keyboardContainer)
 
-        connectButton.setOnClickListener { connect() }
+        setStatusColor(statusDisconnected)
+        statusDot.setOnClickListener { connect() }
 
         val scroll = ScrollView(this)
         val keyboardColumn = LinearLayout(this).apply {
@@ -294,16 +303,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun setStatusColor(color: Int) {
+        statusDot.background = GradientDrawable().apply {
+            shape = GradientDrawable.OVAL
+            setColor(color)
+        }
+    }
+
     private fun connect() {
+        runOnUiThread {
+            setStatusColor(statusConnecting)
+            statusText.text = "Connecting..."
+        }
         ioExecutor.execute {
             try {
                 socket?.close()
                 val s = Socket("127.0.0.1", PORT)
                 writer = PrintWriter(s.getOutputStream(), true)
                 socket = s
-                runOnUiThread { statusText.text = "Connected to PC" }
+                runOnUiThread {
+                    setStatusColor(statusConnected)
+                    statusText.text = "Connected to PC"
+                }
             } catch (e: Exception) {
-                runOnUiThread { statusText.text = "Connection failed: ${e.message}" }
+                runOnUiThread {
+                    setStatusColor(statusError)
+                    statusText.text = "Connection failed: ${e.message}"
+                }
             }
         }
     }
